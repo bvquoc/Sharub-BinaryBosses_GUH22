@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/clientApp';
 import { createContext, useEffect, useState } from 'react';
+import { auth } from '../firebase/clientApp';
 
 export const AuthContext = createContext();
 
@@ -10,13 +10,13 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUserData(user);
-      console.log(userData);
     });
     return () => unsubscribe;
   }, [userData]);
 
   const value = {
     userData,
+    setUserData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
