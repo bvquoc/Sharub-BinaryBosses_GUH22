@@ -9,6 +9,7 @@ import Header from '~/components/layouts/Header';
 import NavBar from '~/components/layouts/NavBar';
 import ProductGift from '~/components/ProductGift';
 import { getAllGifts } from 'db/gift';
+import GiftExchangeModal from 'components/Modal/GiftExchangeModal';
 
 // let productList = {};
 // productList = Object.keys(productList).map((id) => ({
@@ -18,12 +19,14 @@ import { getAllGifts } from 'db/gift';
 
 const Gift = () => {
   const [productList, setProductList] = useState([]);
+  const [render, setRender] = useState(false);
   useEffect(() => {
     getAllGifts().then((res) => {
       const sortedRes = res.sort((a, b) => (a.amount ? -1 : 1));
       setProductList(sortedRes);
     });
-  }, []);
+  }, [render]);
+  const [productData, setProductData] = useState(null);
   return (
     <>
       <Head>
@@ -53,11 +56,14 @@ const Gift = () => {
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
             {productList.map((product) => {
-              return <ProductGift data={product} key={product._docId} />;
+              return <ProductGift data={product} key={product._docId} setProductData={setProductData} />;
             })}
           </div>
         </div>
       </div>
+      {productData && (
+        <GiftExchangeModal render={render} setRender={setRender} productData={productData} setShow={setProductData} />
+      )}
     </>
   );
 };

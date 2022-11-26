@@ -7,9 +7,9 @@ import styles from './ProductGift.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Product({ data }) {
+function Product({ data, setProductData }) {
   const handlePickGift = () => {
-    console.log('Choose this Gift');
+    setProductData(data);
   };
 
   return (
