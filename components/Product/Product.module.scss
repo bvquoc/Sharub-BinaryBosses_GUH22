@@ -1,9 +1,4 @@
 .wrapper {
-  // --width: 160px;
-
-  display: inline-block;
-  // width: var(--width);
-  // height: var(--height);
   border-radius: 6px;
   background-color: #fff;
   padding: 8px;
@@ -17,13 +12,19 @@
 
 .image {
   width: 100%;
+  height: 60%;
   // height: var(--width);
   border-radius: 6px;
   object-fit: cover;
 }
 
 .content {
+  height: 40%;
   margin-top: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .name {
@@ -41,6 +42,7 @@
 
 .desc {
   font-size: 0.8rem;
+  margin-top: 4px;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   display: -webkit-box;
