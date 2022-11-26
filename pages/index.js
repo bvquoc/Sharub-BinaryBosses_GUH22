@@ -29,8 +29,6 @@ const Home = () => {
         <title>Pending...</title>
       </Head>
 
-      <Header />
-
       <div className="bg-gray-200 min-h-screen sm:p-[5%] md:px-[10%] md:py-[2rem] p-[2rem]">
         <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 gap-4">
           {productList.map((product) => {

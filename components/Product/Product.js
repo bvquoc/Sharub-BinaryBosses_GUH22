@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function Product({ data }) {
   return (
-    <Link className={cx('wrapper')} href={`/product?p=${data._docId}`}>
+    <Link className={cx('wrapper')} href={`/product/${data._docId}`}>
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
@@ -17,7 +17,10 @@ function Product({ data }) {
       />
 
       <div className={cx('content')}>
-        <h3 className={cx('name')}>{data.name}</h3>
+        <div>
+          <h3 className={cx('name')}>{data.name}</h3>
+          <p className={cx('desc')}>{data.description}</p>
+        </div>
 
         <div className={cx('location-wrapper')}>
           <FontAwesomeIcon className={cx('icon')} icon={faLocationDot} />
