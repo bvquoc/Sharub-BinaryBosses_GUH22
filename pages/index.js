@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getAllProducts } from '../db/product';
 import { firestore } from '../firebase/clientApp';
 import ScreenLoad from '../components/Loading/ScreenLoad';
@@ -9,6 +9,7 @@ import TinyLoad from '../components/Loading/TinyLoad';
 import Header from '~/components/layouts/Header';
 import NavBar from '~/components/layouts/NavBar';
 import Product from '~/components/Product';
+import { AuthContext } from 'context/AuthContext';
 
 // let productList = {};
 // productList = Object.keys(productList).map((id) => ({
