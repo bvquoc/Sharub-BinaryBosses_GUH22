@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-const ProductModal = ({ productData, setProductData }) => {
+const ProductModal = ({ productData, setProductData, reRender, setReRender }) => {
   console.log(productData);
 
   const actionReceive = () => {
@@ -19,6 +19,7 @@ const ProductModal = ({ productData, setProductData }) => {
       isAvailable: false,
     });
     setProductData(null);
+    setReRender(!reRender);
   };
   useEffect(() => {}, []);
   return (
