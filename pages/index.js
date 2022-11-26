@@ -1,9 +1,10 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductModal from 'components/Modal/ProductModal';
+import { AuthContext } from 'context/AuthContext';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import NavBar from '~/components/layouts/NavBar';
 import Product from '~/components/Product';
 import { getAllProducts } from '../db/product';
@@ -17,12 +18,13 @@ import { getAllProducts } from '../db/product';
 const Home = () => {
   const [productList, setProductList] = useState([]);
   const [reRender, setReRender] = useState(false);
+  const { render } = useContext(AuthContext);
   useEffect(() => {
     getAllProducts().then((res) => {
       const sortedRes = res.sort((a, b) => (a.isAvailable ? -1 : 1));
       setProductList(sortedRes);
     });
-  }, [reRender]);
+  }, [reRender, render]);
 
   const searchRef = useRef(null);
 
@@ -92,14 +94,7 @@ const Home = () => {
               <button className="bg-white py-2 px-4 rounded-md">
                 <FontAwesomeIcon icon={faBell} />
               </button>
-              <Image
-                src={'/img/letuananh.jpg'}
-                alt="avatar"
-                width={40}
-                height={40}
-                quality={100}
-                className="rounded-md"
-              />
+              <Image src={'/img/avatar.jpg'} alt="avatar" width={40} height={40} quality={100} className="rounded-md" />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-x-4">
