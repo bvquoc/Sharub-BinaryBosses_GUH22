@@ -12,7 +12,7 @@ function Product({ data }) {
     <Link className={cx('wrapper')} href={`/product?p=${data._docId}`}>
       <img
         className={cx('image')}
-        src="https://cdn.tgdd.vn/2021/05/CookRecipe/Avatar/banh-mi-thit-bo-nuong-thumbnail-1.jpg"
+        src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
         alt={data.name}
       />
 
