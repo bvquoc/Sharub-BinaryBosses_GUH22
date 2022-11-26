@@ -4,10 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import images from '~/assets/images'
+import { auth } from '../firebase/clientApp.js';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import images from '~/assets/images';
+import { addDocument } from 'db/document/add-a-doc.js';
 const SignUpPage = () => {
   //   const { registerUser } = useContext(AuthContext);
   const router = useRouter();
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
 
   const [province, setProvince] = useState('');
   useEffect(() => {
@@ -18,8 +23,8 @@ const SignUpPage = () => {
 
   const fullNameRef = useRef(null);
   const [address, setAddress] = useState({
-    name: "",
-    code: ""
+    name: '',
+    code: '',
   });
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -37,37 +42,42 @@ const SignUpPage = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
-    const fullName = fullNameRef.current?.value;
-    if (!email || !password || !confirmPassword || !fullName || !address.code) {
+    const name = fullNameRef.current?.value;
+    if (!email || !password || !confirmPassword || !name || !address.code) {
       return toast('Vui lòng nhập đầy đủ thông tin!');
     }
-    console.log({
-      email,
-      password,
-      confirmPassword,
-      address,
-      fullName
-    });
+    if (password !== confirmPassword) {
+      return toast('Mật khẩu không khớp!');
+    }
     if (!validateEmail(email)) {
       return toast('Email không hợp lệ!');
     }
+    createUserWithEmailAndPassword(email, password);
   };
-  const handleAddressSelectionChanged = (e) => {
-    const addressInfo = JSON.parse(e.target.value)
-      setAddress(addressInfo);
+
+  if (auth.currentUser) {
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value;
+    const name = fullNameRef.current?.value;
+    addDocument('users', auth.currentUser.uid, {
+      email,
+      password,
+      address,
+      name,
+    });
+    router.push('/');
+    toast('Đăng kí thành công!');
   }
+  const handleAddressSelectionChanged = (e) => {
+    const addressInfo = JSON.parse(e.target.value);
+    setAddress(addressInfo);
+  };
 
   return (
     <>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
-        <Image
-          alt="logo"
-          src={images.logo}
-          width={100}
-          height={100}
-          priority
-          className="rounded-md"
-        />
+        <Image alt="logo" src={images.logo} width={100} height={100} priority className="rounded-md" />
         <h1 className="text-3xl font-extrabold">Đăng kí</h1>
         <div
           className="flex flex-col gap-4"
@@ -78,13 +88,13 @@ const SignUpPage = () => {
           }}
         >
           <div>
-            <label className="sr-only" htmlFor="fullName-input">
+            <label className="sr-only" htmlFor="name-input">
               Tên
             </label>
             <input
               className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-              id="fullName-input"
-              name="fullName"
+              id="name-input"
+              name="name"
               placeholder="Tên đầy đủ"
               required
               type="text"
@@ -109,11 +119,14 @@ const SignUpPage = () => {
             <label className="sr-only" htmlFor="address-input">
               Địa chỉ
             </label>
-            <select className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black" onChange={handleAddressSelectionChanged}>
-              <option value={JSON.stringify({name: "Địa chỉ", code: null})}>Địa chỉ</option>
+            <select
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              onChange={handleAddressSelectionChanged}
+            >
+              <option value={JSON.stringify({ name: 'Địa chỉ', code: null })}>Địa chỉ</option>
               {province &&
                 province.map((item) => (
-                  <option value={JSON.stringify({name: item.name, code: item.code})} key={item.code}>
+                  <option value={JSON.stringify({ name: item.name, code: item.code })} key={item.code}>
                     {item.name}
                   </option>
                 ))}
