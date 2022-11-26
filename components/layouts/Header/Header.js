@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import styles from './Header.module.scss';
 import images from 'assets/images';
+import { HomeIcon } from 'components/Icons';
 
 const cx = classNames.bind(styles);
 
