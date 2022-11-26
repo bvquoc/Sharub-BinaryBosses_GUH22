@@ -1,11 +1,25 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { updateDocument } from 'db/document/update-a-doc';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const ProductModal = ({ productData, setProductData }) => {
   console.log(productData);
 
+  const actionReceive = () => {
+    if (!productData.isAvailable) {
+      toast('Oops, muộn mất rồi! Chúc bạn may mắn lần sau.');
+      return;
+    }
+    toast('Nhận thành công!');
+    updateDocument('products', productData._docId, {
+      ...productData,
+      isAvailable: false,
+    });
+    setProductData(null);
+  };
   useEffect(() => {}, []);
   return (
     <>
@@ -31,7 +45,10 @@ const ProductModal = ({ productData, setProductData }) => {
             Đăng bởi <b>{productData?.ownerName}</b> | {productData.distance}
           </p>
           <p className="text-sm opacity-70 mt-2">Mô tả: {productData.description}</p>
-          <button className="border-2 border-main w-full rounded-md mt-2 py-2 hover:bg-main hover:text-white text-main font-semibold">
+          <button
+            onClick={actionReceive}
+            className="border-2 border-main w-full rounded-md mt-2 py-2 hover:bg-main hover:text-white text-main font-semibold"
+          >
             Nhận
           </button>
         </div>
