@@ -3,7 +3,12 @@ import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
-
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../firebase/clientApp';
+import { useContext } from 'react';
+import { AuthContext } from 'context/AuthContext';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 import styles from './Header.module.scss';
 import images from 'assets/images';
 
@@ -12,19 +17,34 @@ const cx = classNames.bind(styles);
 const ROUTERS_PATH = [
   {
     path: '/',
-    title: 'Home',
+    title: 'Trang chủ',
   },
   {
-    path: '/profile',
-    title: 'Profile',
+    path: '/user-near',
+    title: 'Người dùng gần đây',
   },
   {
-    path: '/',
-    title: 'Home',
+    path: '/status',
+    title: 'Trạng thái',
   },
 ];
 
 function Header() {
+  const { userData, setUserData } = useContext(AuthContext);
+
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUserData(null);
+        router.replace('/login');
+        console.log('signed out!');
+      })
+      .catch((err) => {
+        return toast(err.message);
+      });
+  };
   return (
     <header className={`${cx('wrapper')} sm:px-[5%] md:px-[10%] p-2`}>
       <div className={cx('inner')}>
@@ -55,6 +75,12 @@ function Header() {
               alt="Nguyen Van A"
             />
           </Link>
+          <button
+            className="bg-red-500 text-white px-2 py-1 rounded-sm ml-2 sm:hover:bg-red-700"
+            onClick={handleSignOut}
+          >
+            Đăng xuất
+          </button>
         </div>
       </div>
     </header>
