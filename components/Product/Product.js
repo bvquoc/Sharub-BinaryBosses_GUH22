@@ -2,12 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faDiamond } from '@fortawesome/free-solid-svg-icons';
 import styles from './Product.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Product({ data }) {
+  console.log(data);
   return (
     <Link className={cx('wrapper')} href={`/product/${data._docId}`}>
       <img
@@ -17,14 +18,23 @@ function Product({ data }) {
       />
 
       <div className={cx('content')}>
-        <div>
-          <h3 className={cx('name')}>{data.name}</h3>
-          <p className={cx('desc')}>{data.description}</p>
-        </div>
+        <h3 className={cx('name')}>{data.name}</h3>
 
-        <div className={cx('location-wrapper')}>
-          <FontAwesomeIcon className={cx('icon')} icon={faLocationDot} />
-          <span className={cx('location')}>{data.pickupLocation}</span>
+        <div className={cx('detail')}>
+          <div className={cx('first-line')}>
+            <span className={cx('owner')}>
+              Đăng bởi <span className={cx('owner-name')}>{data.ownerName}</span>
+            </span>
+            <span className={cx('line')}></span>
+            <span className={cx('distance')}>{data.distance}</span>
+          </div>
+          <div className={cx('condition')}>
+            <FontAwesomeIcon className={cx('icon')} icon={faDiamond} />
+            <span className={cx('condition-title')}>Điều kiện nhận: </span>
+            <span className={cx('condition-count')}>
+              {data.condition ? `Tài khoản trên ${data.condition} Greenpoint` : 'Bất kỳ ai'}
+            </span>
+          </div>
         </div>
       </div>
     </Link>
