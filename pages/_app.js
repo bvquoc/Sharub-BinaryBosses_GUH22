@@ -16,10 +16,12 @@ function MyApp({ Component, pageProps }) {
       if (user) {
         console.log(user);
       } else {
+        console.log(router.asPath);
+        if (router.asPath === '/signup') return;
         router.replace('/login');
       }
     });
-  });
+  }, []);
   return (
     <>
       <AuthContextProvider>
