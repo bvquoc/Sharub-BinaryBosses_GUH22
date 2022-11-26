@@ -83,7 +83,7 @@ const Home = () => {
                 Tìm kiếm
               </label>
               <input
-                className="block lg:w-96 md:w-52 w-24 rounded-md px-4 ountline-none border-none focus:border-transparent focus:outline-none focus:ring-2 focus:ring-main dark:bg-black"
+                className="block lg:w-96 md:w-52 w-20 rounded-md px-4 ountline-none border-none focus:border-transparent focus:outline-none focus:ring-2 focus:ring-main dark:bg-black"
                 id="search-input"
                 name="search"
                 placeholder="Tìm kiếm"
