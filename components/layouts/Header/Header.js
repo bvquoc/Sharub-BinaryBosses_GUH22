@@ -35,15 +35,18 @@ function Header() {
     <header className={`${cx('wrapper')} sm:px-[5%] md:px-[10%] p-2 bg-[#F7F8F9] fixed top-0 left-0 right-0`}>
       <div className={cx('inner')}>
         <div className={cx('left-wrapper')}>
-          <Link href="/">
-            <img className={cx('logo')} src={images.logo} alt="logo" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href="/">
+              <img className={cx('logo')} src={images.logo} alt="logo" />
+            </Link>
+            <h1 className="text-2xl font-bold">Sharub</h1>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Link href="/login" className="text-slate-500">
             Đăng nhập
           </Link>
-          <Link href="/signup" className="bg-main px-4 py-1 rounded-md">
+          <Link href="/signup" className="bg-main px-4 py-1 rounded-md text-white">
             Đăng kí
           </Link>
         </div>

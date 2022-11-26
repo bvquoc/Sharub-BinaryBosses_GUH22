@@ -41,7 +41,7 @@ function NavBar() {
 
   const handleClick = (e, href) => {
     e.preventDefault();
-    router.push(href);
+    router.replace(href);
     console.log(href);
   };
 
@@ -53,12 +53,15 @@ function NavBar() {
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <Link className={cx('logo')} href="/">
-          <img className={cx('logo-icon')} src={images.logo} alt="logo" />
-        </Link>
+        <div className="flex items-center">
+          <Link className={cx('logo')} href="/">
+            <img className={cx('logo-icon')} src={images.logo} alt="logo" />
+          </Link>
+          <h1 className="text-xl font-bold">Sharub</h1>
+        </div>
 
-        <span className={cx('line')}></span>
-
+        {/* <span className={cx('line')}></span> */}
+        <hr />
         <div className={cx('menu')}>
           {ROUTERS_PATH.map((item, index) => {
             return (

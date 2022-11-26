@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <AuthContextProvider>
-        <NavBar />
         <ToastContainer position="bottom-right" autoClose={3000} />
         <Component {...pageProps} />
       </AuthContextProvider>

@@ -65,25 +65,15 @@ const SignInPage = () => {
     setAddress(addressInfo);
   };
 
-  const [_continue, setContinue] = useState(false);
-
-  const handleContinue = () => {
-    if (validateEmail(emailRef.current?.value)) {
-      setContinue(true);
-    } else {
-      return toast('Email không hợp lệ!');
-    }
-  };
-
   return (
     <>
       <Header />
-      <div className=" min-h-screen flex flex-col items-center justify-center gap-y-8 bg-[#F7f8f9] p-8 rounded-lg ">
+      <div className=" min-h-screen flex flex-col items-center justify-center gap-y-8 bg-[#F7f8f9] p-8 rounded-lg">
         {/* <Image alt="logo" src={images.logo} width={50} height={50} priority className="rounded-md" /> */}
         <h2 className="text-3xl font-bold text-center">
           Tham gia cộng đồng <br /> Sharub ngay
         </h2>
-        <h1 className="text-3xl font-extrabold">Đăng kí</h1>
+        <h1 className="text-md text-slate-500 font-semibold">Đăng kí tài khoản</h1>
         <div
           className="flex flex-col gap-4"
           onKeyUp={(e) => {
@@ -106,85 +96,72 @@ const SignInPage = () => {
               ref={emailRef}
             />
           </div>
-          {_continue && (
-            <>
-              <div>
-                <label className="sr-only" htmlFor="name-input">
-                  Tên
-                </label>
-                <input
-                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-                  id="name-input"
-                  name="name"
-                  placeholder="Tên đầy đủ"
-                  required
-                  type="text"
-                  ref={fullNameRef}
-                />
-              </div>
-              <div>
-                <label className="sr-only" htmlFor="address-input">
-                  Địa chỉ
-                </label>
-                <select
-                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-                  onChange={handleAddressSelectionChanged}
-                >
-                  <option value={JSON.stringify({ name: 'Địa chỉ', code: null })}>Địa chỉ</option>
-                  {province &&
-                    province.map((item) => (
-                      <option value={JSON.stringify({ name: item.name, code: item.code })} key={item.code}>
-                        {item.name}
-                      </option>
-                    ))}
-                </select>
-              </div>
-              <div>
-                <label className="sr-only" htmlFor="password-input">
-                  Mật khẩu
-                </label>
-                <input
-                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-                  id="password-input"
-                  name="password"
-                  placeholder="Mật khẩu"
-                  required
-                  type="password"
-                  ref={passwordRef}
-                />
-              </div>
-              <div>
-                <label className="sr-only" htmlFor="confirm-password-input">
-                  Mật khẩu
-                </label>
-                <input
-                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-                  id="confirm-password-input"
-                  name="confirmPassword"
-                  placeholder="Xác nhận mật khẩu"
-                  required
-                  type="password"
-                  ref={confirmPasswordRef}
-                />
-              </div>
-            </>
-          )}
           <div>
-            {!_continue && (
-              <div>
-                <button onClick={handleContinue} className="bg-main w-full text-white rounded-md py-2">
-                  Tiếp tục
-                </button>
-              </div>
-            )}
-            {_continue && (
-              <button
-                className="w-full rounded-md bg-primary-500 p-2 text-center text-white sm:hover:bg-primary-700"
-                onClick={handleSignUp}
-              >
-                Đăng kí
-              </button>
-            )}
+            <label className="sr-only" htmlFor="name-input">
+              Tên
+            </label>
+            <input
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              id="name-input"
+              name="name"
+              placeholder="Tên đầy đủ"
+              required
+              type="text"
+              ref={fullNameRef}
+            />
+          </div>
+          <div>
+            <label className="sr-only" htmlFor="address-input">
+              Địa chỉ
+            </label>
+            <select
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              onChange={handleAddressSelectionChanged}
+            >
+              <option value={JSON.stringify({ name: 'Địa chỉ', code: null })}>Địa chỉ</option>
+              {province &&
+                province.map((item) => (
+                  <option value={JSON.stringify({ name: item.name, code: item.code })} key={item.code}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div>
+            <label className="sr-only" htmlFor="password-input">
+              Mật khẩu
+            </label>
+            <input
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              id="password-input"
+              name="password"
+              placeholder="Mật khẩu"
+              required
+              type="password"
+              ref={passwordRef}
+            />
+          </div>
+          <div>
+            <label className="sr-only" htmlFor="confirm-password-input">
+              Mật khẩu
+            </label>
+            <input
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              id="confirm-password-input"
+              name="confirmPassword"
+              placeholder="Xác nhận mật khẩu"
+              required
+              type="password"
+              ref={confirmPasswordRef}
+            />
+          </div>
+          <div>
+            <button
+              className="w-full rounded-md bg-primary-500 p-2 text-center text-white sm:hover:bg-primary-700"
+              onClick={handleSignUp}
+            >
+              Đăng kí
+            </button>
             <p className="text-center mt-2">
               Bạn đã có tài khoản?{' '}
               <Link href="/login" className="text-main">

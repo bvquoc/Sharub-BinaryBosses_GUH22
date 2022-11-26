@@ -58,7 +58,7 @@ const SignUpPage = () => {
           <p className="font-semibold mb-4">Nền tảng cho và nhận những món đồ thừa đầu tiên tại Việt Nam</p>
           <Image src={'/img/signup.jpg'} width={500} height={500} />
         </div>
-        <div className="min-h-screen flex flex-col items-center justify-center gap-y-8 bg-[#F7F8F9] dark:bg-black">
+        <div className="flex flex-col items-center justify-center gap-y-8 bg-[#F7F8F9] dark:bg-black">
           {/* <Image alt="logo" src={images.logo} width={100} height={100} priority className="rounded-md" /> */}
           <h1 className="text-3xl font-extrabold">Đăng nhập</h1>
           <div
