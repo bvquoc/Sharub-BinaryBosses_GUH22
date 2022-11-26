@@ -30,16 +30,7 @@ const ProductModal = ({ productData, setProductData, reRender, setReRender }) =>
         </div>
         <div className="bg-white p-4 rounded-md sm:w-80 md:w-96">
           <div className="grid place-items-center">
-            <Image
-              src={productData.imgUrl}
-              width={400}
-              height={400}
-              quality={70}
-              loading="lazy"
-              blurDataURL={productData.imgUrl}
-              placeholder="blur"
-              style={{ objectFit: 'cover' }}
-            />
+            <img src={productData.imgUrl} width={400} height={400} loading="lazy" style={{ objectFit: 'cover' }} />
           </div>
           <h1 className="text-2xl font-semibold mt-2">{productData.name}</h1>
           <p className="text-sm opacity-70 mt-2">
