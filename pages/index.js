@@ -61,7 +61,7 @@ const Home = () => {
     <>
       <Head>
         //! Edit title
-        <title>Pending...</title>
+        <title>Sharub</title>
       </Head>
       <div className="grid grid-cols-[auto_auto_auto] bg-[#eff3fd]">
         <NavBar />
@@ -89,7 +89,6 @@ const Home = () => {
               <button className="bg-white py-2 px-4 rounded-md">
                 <FontAwesomeIcon icon={faBell} />
               </button>
-              <p>Lê Tuấn Anh</p>
               <Image
                 src={'/img/letuananh.jpg'}
                 alt="avatar"
