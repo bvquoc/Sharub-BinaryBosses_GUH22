@@ -16,7 +16,7 @@ import ProductGift from '~/components/ProductGift';
 //   ...productList[id],
 // }));
 
-const GreenPoint = () => {
+const Gift = () => {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
     getAllProducts().then((res) => {
@@ -27,7 +27,7 @@ const GreenPoint = () => {
     <>
       <Head>
         //! Edit title
-        <title>Sharub</title>
+        <title>Đổi Quà</title>
       </Head>
       <div className="grid grid-cols-[auto_auto_auto] bg-[#eff3fd]">
         <NavBar />
@@ -62,4 +62,4 @@ const GreenPoint = () => {
   );
 };
 
-export default GreenPoint;
+export default Gift;

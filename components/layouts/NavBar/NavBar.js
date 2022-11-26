@@ -21,8 +21,8 @@ const ROUTERS_PATH = [
     icon: <HomeIcon />,
   },
   {
-    path: '/greenpoint',
-    title: 'Greenpoint',
+    path: '/gift',
+    title: 'Đổi Quà',
     icon: <PointIcon />,
   },
   {
