@@ -12,6 +12,7 @@ import Product from '~/components/Product';
 import { AuthContext } from 'context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import ProductModal from 'components/Modal/ProductModal';
 
 // let productList = {};
 // productList = Object.keys(productList).map((id) => ({
@@ -37,25 +38,31 @@ const Home = () => {
     },
     {
       top: 2,
-      imgSrc: '/img/greenHug.png',
+      imgSrc: '/img/GreenHug.png',
       name: 'Lê Tuấn Anh',
     },
     {
       top: 3,
-      imgSrc: '/img/greenHug.png',
+      imgSrc: '/img/GreenHug.png',
       name: 'Lê Thị Liên',
     },
     {
       top: 4,
-      imgSrc: '/img/greenHug.png',
+      imgSrc: '/img/GreenHug.png',
       name: 'Nguyễn Xuân Bắc',
     },
     {
       top: 5,
-      imgSrc: '/img/greenHug.png',
+      imgSrc: '/img/GreenHug.png',
       name: 'Trần Tuấn Kiệt',
     },
   ];
+
+  const [productData, setProductData] = useState(null);
+
+  const handleClickProduct = (data) => {
+    setProductData(data);
+  };
 
   return (
     <>
@@ -76,7 +83,7 @@ const Home = () => {
                 Tìm kiếm
               </label>
               <input
-                className="block w-96 rounded-md px-4 ountline-none border-none focus:border-transparent focus:outline-none focus:ring-2 focus:ring-main dark:bg-black"
+                className="block lg:w-96 md:w-52 w-24 rounded-md px-4 ountline-none border-none focus:border-transparent focus:outline-none focus:ring-2 focus:ring-main dark:bg-black"
                 id="search-input"
                 name="search"
                 placeholder="Tìm kiếm"
@@ -117,14 +124,14 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 grid-cols-1 gap-4 mt-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-col-4 grid-cols-1 gap-4 mt-8">
             {productList.map((product) => {
               // console.log(product);
-              return <Product data={product} key={product._docId} />;
+              return <Product data={product} key={product._docId} onClick={handleClickProduct} />;
             })}
           </div>
         </div>
-        <div className="bg-white mt-[2rem] w-72 mr-[2rem] rounded-md p-4 h-max">
+        <div className="bg-white mt-[2rem] mr-[2rem] rounded-md p-4 h-max">
           <h2 className="text-3xl font-semibold">Top Sharuber</h2>
           {ranking.map((rank) => (
             <RankCard {...rank} key={rank.name} />
@@ -132,6 +139,7 @@ const Home = () => {
           <p className="text-sm text-center text-slate-400 pb-4">Thứ hạng hiện tại của bạn: 89</p>
         </div>
       </div>
+      {productData && <ProductModal productData={productData} setProductData={setProductData} />}
     </>
   );
 };

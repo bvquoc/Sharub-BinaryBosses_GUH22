@@ -7,10 +7,9 @@ import styles from './Product.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Product({ data }) {
-  console.log(data);
+function Product({ data, onClick }) {
   return (
-    <Link className={cx('wrapper')} href={`/product/${data._docId}`}>
+    <div className={cx('wrapper')} onClick={() => onClick(data)}>
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
@@ -37,7 +36,7 @@ function Product({ data }) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
