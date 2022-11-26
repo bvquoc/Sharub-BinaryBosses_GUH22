@@ -2,12 +2,25 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import images from '~/assets/images'
 const SignUpPage = () => {
   //   const { registerUser } = useContext(AuthContext);
   const router = useRouter();
 
+  const [province, setProvince] = useState('');
+  useEffect(() => {
+    fetch('https://provinces.open-api.vn/api/')
+      .then((res) => res.json())
+      .then((data) => setProvince(data));
+  }, []);
+
+  const fullNameRef = useRef(null);
+  const [address, setAddress] = useState({
+    name: "",
+    code: ""
+  });
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
@@ -24,32 +37,32 @@ const SignUpPage = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
-    if (!email || !password || !confirmPassword) {
+    const fullName = fullNameRef.current?.value;
+    if (!email || !password || !confirmPassword || !fullName || !address.code) {
       return toast('Vui lòng nhập đầy đủ thông tin!');
     }
     console.log({
       email,
       password,
       confirmPassword,
+      address,
+      fullName
     });
     if (!validateEmail(email)) {
       return toast('Email không hợp lệ!');
     }
-    // const registerData = await registerUser({ email, password, confirmPassword });
-    // if (!registerData.success) {
-    //   toast(registerData.message);
-    // } else {
-    //   toast('Đăng kí thành công!');
-    //   router.replace('/');
-    // }
   };
+  const handleAddressSelectionChanged = (e) => {
+    const addressInfo = JSON.parse(e.target.value)
+      setAddress(addressInfo);
+  }
 
   return (
     <>
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
         <Image
           alt="logo"
-          src={'/static/favicons/android-icon-144x144.png'}
+          src={images.logo}
           width={100}
           height={100}
           priority
@@ -65,6 +78,20 @@ const SignUpPage = () => {
           }}
         >
           <div>
+            <label className="sr-only" htmlFor="fullName-input">
+              Tên
+            </label>
+            <input
+              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+              id="fullName-input"
+              name="fullName"
+              placeholder="Tên đầy đủ"
+              required
+              type="text"
+              ref={fullNameRef}
+            />
+          </div>
+          <div>
             <label className="sr-only" htmlFor="email-input">
               Email
             </label>
@@ -77,6 +104,20 @@ const SignUpPage = () => {
               type="email"
               ref={emailRef}
             />
+          </div>
+          <div>
+            <label className="sr-only" htmlFor="address-input">
+              Địa chỉ
+            </label>
+            <select className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black" onChange={handleAddressSelectionChanged}>
+              <option value={JSON.stringify({name: "Địa chỉ", code: null})}>Địa chỉ</option>
+              {province &&
+                province.map((item) => (
+                  <option value={JSON.stringify({name: item.name, code: item.code})} key={item.code}>
+                    {item.name}
+                  </option>
+                ))}
+            </select>
           </div>
           <div>
             <label className="sr-only" htmlFor="password-input">
