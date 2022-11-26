@@ -1,18 +1,12 @@
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProductModal from 'components/Modal/ProductModal';
 import Head from 'next/head';
 import Image from 'next/image';
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { getAllProducts } from '../db/product';
-import { firestore } from '../firebase/clientApp';
-import ScreenLoad from '../components/Loading/ScreenLoad';
-import TinyLoad from '../components/Loading/TinyLoad';
-import Header from '~/components/layouts/Header';
+import { useEffect, useRef, useState } from 'react';
 import NavBar from '~/components/layouts/NavBar';
 import Product from '~/components/Product';
-import { AuthContext } from 'context/AuthContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import ProductModal from 'components/Modal/ProductModal';
+import { getAllProducts } from '../db/product';
 
 // let productList = {};
 // productList = Object.keys(productList).map((id) => ({
@@ -132,7 +126,7 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="bg-white mt-[2rem] mr-[2rem] rounded-md p-4 h-max">
+        <div className="bg-white mt-[2rem] mr-[2rem] rounded-md p-4 h-max sticky top-4">
           <h2 className="text-3xl font-semibold">Top Sharuber</h2>
           {ranking.map((rank) => (
             <RankCard {...rank} key={rank.name} />
