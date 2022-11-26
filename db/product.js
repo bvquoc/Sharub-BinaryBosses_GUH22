@@ -10,7 +10,6 @@ const getAllProducts = async () => {
       result.push({ ...doc.data(), _docId: doc.id });
     });
   });
-  console.log('posts:', result);
   return result;
 };
 

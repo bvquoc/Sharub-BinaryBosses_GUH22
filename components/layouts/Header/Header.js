@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Header.module.scss';
+import images from 'assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -29,11 +30,7 @@ function Header() {
       <div className={cx('inner')}>
         <div className={cx('left-wrapper')}>
           <Link href="/">
-            <img
-              className={cx('logo')}
-              src="https://codeforces.org/s/15736/images/codeforces-sponsored-by-ton.png"
-              alt="logo"
-            />
+            <img className={cx('logo')} src={images.logo} alt="logo" />
           </Link>
 
           <div className={`${cx('routers')} hidden sm:block`}>
