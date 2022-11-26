@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 
 const ProductUploadModal = ({ setShow }) => {
   const productNameRef = useRef(null);
-  const pickupAtRef = useRef(null);
   const imageRef = useRef(null);
   const descriptionRef = useRef(null);
   const [province, setProvince] = useState('');
@@ -26,10 +25,11 @@ const ProductUploadModal = ({ setShow }) => {
   const handleUpload = () => {
     const productName = productNameRef.current?.value;
     const imgUrl = imageRef?.current.value;
-    if (!productName || !imgUrl || !address.code) {
+    const description = descriptionRef.current?.value;
+    if (!productName || !imgUrl || !address.code || !description) {
       return toast('Vui lòng nhập đầy đủ thông tin!');
     }
-    console.log({ name: productName, imgUrl, address });
+    console.log({ name: productName, imgUrl, address, description });
   };
 
   return (
