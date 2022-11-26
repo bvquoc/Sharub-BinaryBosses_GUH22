@@ -38,10 +38,14 @@ const SignInPage = () => {
     if (!validateEmail(email)) {
       return toast('Email không hợp lệ!');
     }
-
-    signInWithEmailAndPassword(email, password).then(() => {
-      // setUserData(data)
-    });
+    // const loginData = await loginUser({ email, password })
+    // if (!loginData.success) {
+    //   toast(loginData.message)
+    //   console.log(loginData)
+    // } else {
+    //   console.log(loginData)
+    //   router.replace('/')
+    // }
   };
 
   return (
