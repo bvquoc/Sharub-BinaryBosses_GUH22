@@ -75,8 +75,8 @@ const Home = () => {
         <div className="min-h-screen p-[2rem]">
           <div className="flex justify-between mb-4 items-center">
             <div>
-              <h2 className="text-2xl font-bold">Xin chào, Tuấn Anh</h2>
-              <p className="text-slate-500">Buổi tối tốt lành!</p>
+              <h2 className="text-2xl font-bold">Xin chào!</h2>
+              <p className="text-slate-500">Chúc bạn một ngày tốt lành!</p>
             </div>
             <div>
               <label className="sr-only" htmlFor="search-input">

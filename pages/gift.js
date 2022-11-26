@@ -2,13 +2,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { getAllProducts } from '../db/product';
 import { firestore } from '../firebase/clientApp';
 import ScreenLoad from '../components/Loading/ScreenLoad';
 import TinyLoad from '../components/Loading/TinyLoad';
 import Header from '~/components/layouts/Header';
 import NavBar from '~/components/layouts/NavBar';
 import ProductGift from '~/components/ProductGift';
+import { getAllGifts } from 'db/gift';
 
 // let productList = {};
 // productList = Object.keys(productList).map((id) => ({
@@ -19,7 +19,7 @@ import ProductGift from '~/components/ProductGift';
 const Gift = () => {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
-    getAllProducts().then((res) => {
+    getAllGifts().then((res) => {
       setProductList(res);
     });
   }, []);

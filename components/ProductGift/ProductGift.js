@@ -26,7 +26,7 @@ function Product({ data }) {
         <div className={cx('detail')}>
           <div className={cx('condition')}>
             <FontAwesomeIcon className={cx('icon')} icon={faDiamond} />
-            <span className={cx('condition-count')}>${data.condition} Greenpoint</span>
+            <span className={cx('condition-count')}>{data.gp} Greenpoint</span>
           </div>
 
           <button className={cx('exchange-btn')} onClick={handlePickGift}>
