@@ -10,12 +10,13 @@ import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword } from
 import images from '~/assets/images';
 import { addDocument } from 'db/document/add-a-doc.js';
 import Header from 'components/layouts/Header/Header.js';
+import { AuthContext } from 'context/AuthContext.js';
+import Head from 'next/head.js';
 const SignUpPage = () => {
   //   const { registerUser } = useContext(AuthContext);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
-  const [userData, setUserData] = useState(null);
   const router = useRouter();
   if (user) {
     console.log(user);
@@ -44,19 +45,22 @@ const SignUpPage = () => {
     }
 
     signInWithEmailAndPassword(email, password).then(() => {
-      // setUserData(data)
+      // setUserData(user);
     });
   };
 
   return (
     <>
+      <Head>
+        <title>Đăng nhập</title>
+      </Head>
       <Header />
       <div className="bg-[#F7F8F9] grid md:grid-cols-2 grid-cols-1 min-h-screen place-items-center">
         <div className="flex flex-col gap-y-2">
           <h2 className="text-3xl font-bold">Chia sẻ</h2>
           <h2 className="text-3xl font-bold">để tiết kiệm</h2>
           <p className="font-semibold mb-4">Nền tảng cho và nhận những món đồ thừa đầu tiên tại Việt Nam</p>
-          <Image src={'/img/signup.jpg'} width={500} height={500} />
+          <Image src={'/img/signup.jpg'} width={500} height={500} alt="Share" />
         </div>
         <div className="flex flex-col items-center justify-center gap-y-8 bg-white p-8 rounded-md dark:bg-black shadow-lg">
           {/* <Image alt="logo" src={images.logo} width={100} height={100} priority className="rounded-md" /> */}

@@ -2,6 +2,7 @@
 import Header from 'components/layouts/Header/Header.js';
 import { addDocument } from 'db/document/add-a-doc.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import Head from 'next/head.js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -67,6 +68,9 @@ const SignInPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Đăng kí</title>
+      </Head>
       <Header />
       <div className=" min-h-screen flex flex-col items-center justify-center gap-y-8 bg-[#F7f8f9] p-8 rounded-lg">
         {/* <Image alt="logo" src={images.logo} width={50} height={50} priority className="rounded-md" /> */}
