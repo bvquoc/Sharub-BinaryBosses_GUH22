@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiamond } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +11,7 @@ function Product({ data, onClick }) {
       className={cx('wrapper', {
         unavailable: data.isAvailable,
       })}
+      style={{ cursor: 'pointer' }}
       onClick={() => onClick(data)}
     >
       <img

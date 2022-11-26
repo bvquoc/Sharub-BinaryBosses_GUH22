@@ -6,11 +6,12 @@ import styles from './NavBar.module.scss';
 import { CalendarIcon, HomeIcon, LibraryIcon, PointIcon, SettingIcon } from 'components/Icons';
 import images from 'assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn, faCloudArrowUp, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { signOut } from 'firebase/auth';
 import { auth } from '~/firebase/clientApp';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from 'context/AuthContext';
+import ProductUploadModal from 'components/Modal/ProductUploadModal';
 
 const cx = classNames.bind(styles);
 
@@ -65,44 +66,55 @@ function NavBar() {
     });
   };
 
-  return (
-    <header className={cx('wrapper')}>
-      <div className={cx('inner')}>
-        <div className="flex items-center">
-          <Link className={cx('logo')} href="/">
-            <img className={cx('logo-icon')} src={images.logo} alt="logo" />
-            <h1 className="ml-4 text-2xl font-bold">Sharub</h1>
-          </Link>
-        </div>
+  const [isShow, setIsShow] = useState(false);
 
-        {/* <span className={cx('line')}></span> */}
-        <hr />
-        <div className="flex justify-between flex-col">
-          <div className={cx('menu')}>
-            {ROUTERS_PATH.map((item, index) => {
-              return (
-                <Link
-                  className={classes(item.path)}
-                  href={item.path}
-                  key={index}
-                  onClick={(e) => handleClick(e, item.path)}
-                >
-                  {item.icon}
-                  <span className={cx('title')}>{item.title}</span>
-                </Link>
-              );
-            })}
+  return (
+    <>
+      <header className={cx('wrapper')}>
+        <div className={cx('inner')}>
+          <div className="flex items-center">
+            <Link className={cx('logo')} href="/">
+              <img className={cx('logo-icon')} src={images.logo} alt="logo" />
+              <h1 className="ml-4 text-2xl font-bold">Sharub</h1>
+            </Link>
           </div>
-          <button
-            onClick={handleLogout}
-            className="absolute bottom-10 left-4 right-4 py-2 rounded-md sm:transform hover:scale-[1.03] hover:text-red-500 transition-all"
-          >
-            <FontAwesomeIcon icon={faRightFromBracket} size={30} />
-            <span className={cx('title')}>Đăng xuất</span>
-          </button>
+
+          {/* <span className={cx('line')}></span> */}
+          <hr />
+          <div className="flex justify-between flex-col">
+            <div className={cx('menu')}>
+              {ROUTERS_PATH.map((item, index) => {
+                return (
+                  <Link
+                    className={classes(item.path)}
+                    href={item.path}
+                    key={index}
+                    onClick={(e) => handleClick(e, item.path)}
+                  >
+                    {item.icon}
+                    <span className={cx('title')}>{item.title}</span>
+                  </Link>
+                );
+              })}
+              <button className="mt-4 rounded-md w-full sm:transform hover:scale-[1.03] transition-all bg-main py-2 text-white" onClick={() => setIsShow(true)}>
+                <FontAwesomeIcon icon={faCloudArrowUp} size={30} />
+                <span className={cx('title')}>Đăng bài</span>
+              </button>
+            </div>
+            <div className="absolute bottom-[10%] left-4 right-4 flex flex-col">
+              <button
+                onClick={handleLogout}
+                className="rounded-md sm:transform hover:scale-[1.03] hover:text-red-500 transition-all"
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} size={30} />
+                <span className={cx('title')}>Đăng xuất</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+      {isShow && <ProductUploadModal setShow={setIsShow} />}
+    </>
   );
 }
 
