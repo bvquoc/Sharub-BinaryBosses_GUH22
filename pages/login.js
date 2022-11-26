@@ -11,22 +11,34 @@ const SignInPage = () => {
   //   const router = useRouter()
 
   //   const { loginUser } = useContext(AuthContext)
-  //   const handleSignIn = async () => {
-  //     const username = usernameRef.current?.value
-  //     const password = passwordRef.current?.value
-  //     const pattern = new RegExp('^\\w[\\w.]{2,18}\\w$')
-  //     if (!pattern.test(username)) {
-  //       return toast('Tên người dùng không hợp lệ!')
-  //     }
-  //     const loginData = await loginUser({ username, password })
-  //     if (!loginData.success) {
-  //       toast(loginData.message)
-  //       console.log(loginData)
-  //     } else {
-  //       console.log(loginData)
-  //       router.replace('/')
-  //     }
-  //   }
+  const handleSignIn = async () => {
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+    console.log({ email, password });
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        );
+    };
+
+    if (!email || !password) {
+      return toast('Vui lòng nhập đầy đủ thông tin!');
+    }
+
+    if (!validateEmail(email)) {
+      return toast('Email không hợp lệ!');
+    }
+    // const loginData = await loginUser({ email, password })
+    // if (!loginData.success) {
+    //   toast(loginData.message)
+    //   console.log(loginData)
+    // } else {
+    //   console.log(loginData)
+    //   router.replace('/')
+    // }
+  };
 
   return (
     <>
@@ -44,12 +56,12 @@ const SignInPage = () => {
           className="flex flex-col gap-4"
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
-              //   handleSignIn()
+              handleSignIn();
             }
           }}
         >
           <div>
-            <label className="sr-only" htmlFor="username-input">
+            <label className="sr-only" htmlFor="email-input">
               Email
             </label>
             <input
@@ -58,7 +70,7 @@ const SignInPage = () => {
               name="email"
               placeholder="Email"
               required
-              type="text"
+              type="email"
               ref={emailRef}
             />
           </div>
@@ -79,7 +91,7 @@ const SignInPage = () => {
           <div>
             <button
               className="w-full rounded-md bg-primary-500 p-2 text-center text-white sm:hover:bg-primary-700"
-              //   onClick={handleSignIn}
+              onClick={handleSignIn}
             >
               Đăng nhập
             </button>
