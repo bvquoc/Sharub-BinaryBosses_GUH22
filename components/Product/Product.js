@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function Product({ data }) {
   return (
-    <Link className={cx('wrapper')} href={`/product?p=${data.id}`}>
+    <Link className={cx('wrapper')} href={`/product?p=${data._docId}`}>
       <img
         className={cx('image')}
         src="https://cdn.tgdd.vn/2021/05/CookRecipe/Avatar/banh-mi-thit-bo-nuong-thumbnail-1.jpg"
