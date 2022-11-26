@@ -25,7 +25,7 @@ const ROUTERS_PATH = [
 
 function Header() {
   return (
-    <header className={cx('wrapper')}>
+    <header className={`${cx('wrapper')} sm:px-[5%] md:px-[10%] p-2`}>
       <div className={cx('inner')}>
         <div className={cx('left-wrapper')}>
           <Link href="/">
@@ -36,7 +36,7 @@ function Header() {
             />
           </Link>
 
-          <div className={cx('routers')}>
+          <div className={`${cx('routers')} hidden sm:block`}>
             {ROUTERS_PATH.map((page, index) => (
               <Link className={cx('link')} href={page.path} key={index}>
                 {page.title}
