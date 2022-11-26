@@ -12,15 +12,30 @@ const SignUpPage = () => {
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      );
+  };
+
   const handleSignUp = async () => {
-    const username = usernameRef.current?.value;
+    const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
-    const pattern = new RegExp('^\\w[\\w.]{2,18}\\w$');
-    if (!pattern.test(username)) {
-      return toast('Tên người dùng không hợp lệ!');
+    if (!email || !password || !confirmPassword) {
+      return toast('Vui lòng nhập đầy đủ thông tin!');
     }
-    // const registerData = await registerUser({ username, password, confirmPassword });
+    console.log({
+      email,
+      password,
+      confirmPassword,
+    });
+    if (!validateEmail(email)) {
+      return toast('Email không hợp lệ!');
+    }
+    // const registerData = await registerUser({ email, password, confirmPassword });
     // if (!registerData.success) {
     //   toast(registerData.message);
     // } else {
@@ -28,11 +43,9 @@ const SignUpPage = () => {
     //   router.replace('/');
     // }
   };
-  const MemoToastify = useCallback((props) => <ToastContainer {...props} />, []);
 
   return (
     <>
-      <MemoToastify position="bottom-right" autoClose={3000} />
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
         <Image
           alt="logo"
@@ -61,7 +74,7 @@ const SignUpPage = () => {
               name="email"
               placeholder="Email"
               required
-              type="text"
+              type="email"
               ref={emailRef}
             />
           </div>
@@ -105,9 +118,6 @@ const SignUpPage = () => {
               <button className="w-full rounded-md border p-2 text-center sm:hover:border-gray-300 sm:hover:bg-gray-200">
                 Đăng nhập
               </button>
-            </Link>
-            <Link href="/" passHref>
-              <button className="w-full rounded-md p-2 text-center sm:hover:text-primary-500">Trang chủ</button>
             </Link>
           </div>
         </div>

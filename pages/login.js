@@ -28,11 +28,8 @@ const SignInPage = () => {
   //     }
   //   }
 
-  const MemoToastify = useCallback((props) => <ToastContainer {...props} />, []);
-
   return (
     <>
-      <MemoToastify position="bottom-right" autoClose={3000} />
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
         <Image
           alt="logo"
@@ -91,9 +88,6 @@ const SignInPage = () => {
               <button className="w-full rounded-md border p-2 text-center sm:hover:border-gray-300 sm:hover:bg-gray-200">
                 Đăng kí
               </button>
-            </Link>
-            <Link href="/" passHref>
-              <button className="w-full rounded-md p-2 text-center sm:hover:text-primary-500">Trang chủ</button>
             </Link>
           </div>
         </div>
