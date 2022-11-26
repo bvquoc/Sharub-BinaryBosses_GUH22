@@ -7,7 +7,7 @@ const ProductUploadModal = ({ setShow }) => {
   const productNameRef = useRef(null);
   const pickupAtRef = useRef(null);
   const imageRef = useRef(null);
-
+  const descriptionRef = useRef(null);
   const [province, setProvince] = useState('');
   const [address, setAddress] = useState({
     name: '',
@@ -82,6 +82,21 @@ const ProductUploadModal = ({ setShow }) => {
             required
             type="url"
             ref={imageRef}
+          />
+        </div>
+
+        <div>
+          <label className="sr-only" htmlFor="description-input">
+            Mô tả
+          </label>
+          <textarea
+            className="block rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-main py-2 w-full border border-black"
+            id="description-input"
+            name="description"
+            placeholder="Mô tả"
+            required
+            type="url"
+            ref={descriptionRef}
           />
         </div>
 
