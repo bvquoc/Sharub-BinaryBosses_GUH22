@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function Product({ data }) {
   return (
-    <Link className={cx('wrapper')} href={`/product?p=${data._docId}`}>
+    <Link className={cx('wrapper')} href={`/product/${data._docId}`}>
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
