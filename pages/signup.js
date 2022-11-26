@@ -1,35 +1,22 @@
 // import { AuthContext } from 'contexts/AuthContext';
-import Image from 'next/image';
+import Header from 'components/layouts/Header/Header.js';
+import { addDocument } from 'db/document/add-a-doc.js';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { auth } from '../firebase/clientApp.js';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
-import images from '~/assets/images';
-import { addDocument } from 'db/document/add-a-doc.js';
-const SignUpPage = () => {
-  //   const { registerUser } = useContext(AuthContext);
-  const router = useRouter();
-  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
-
-  const [province, setProvince] = useState('');
-  useEffect(() => {
-    fetch('https://provinces.open-api.vn/api/')
-      .then((res) => res.json())
-      .then((data) => setProvince(data));
-  }, []);
-
+const SignInPage = () => {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const fullNameRef = useRef(null);
   const [address, setAddress] = useState({
     name: '',
     code: '',
   });
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
-
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -38,6 +25,14 @@ const SignUpPage = () => {
       );
   };
 
+  const [province, setProvince] = useState('');
+  useEffect(() => {
+    fetch('https://provinces.open-api.vn/api/')
+      .then((res) => res.json())
+      .then((data) => setProvince(data));
+  }, []);
+
+  const router = useRouter();
   const handleSignUp = async () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
@@ -52,32 +47,42 @@ const SignUpPage = () => {
     if (!validateEmail(email)) {
       return toast('Email không hợp lệ!');
     }
-    createUserWithEmailAndPassword(email, password);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        addDocument('users', auth.currentUser.uid, {
+          email,
+          password,
+          address,
+          name,
+        });
+        router.push('/');
+        toast('Đăng kí thành công!');
+      })
+      .catch((err) => toast(err.message));
   };
-
-  if (auth.currentUser) {
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
-    const confirmPassword = confirmPasswordRef.current?.value;
-    const name = fullNameRef.current?.value;
-    addDocument('users', auth.currentUser.uid, {
-      email,
-      password,
-      address,
-      name,
-    });
-    router.push('/');
-    toast('Đăng kí thành công!');
-  }
   const handleAddressSelectionChanged = (e) => {
     const addressInfo = JSON.parse(e.target.value);
     setAddress(addressInfo);
   };
 
+  const [_continue, setContinue] = useState(false);
+
+  const handleContinue = () => {
+    if (validateEmail(emailRef.current?.value)) {
+      setContinue(true);
+    } else {
+      return toast('Email không hợp lệ!');
+    }
+  };
+
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
-        <Image alt="logo" src={images.logo} width={100} height={100} priority className="rounded-md" />
+      <Header />
+      <div className=" min-h-screen flex flex-col items-center justify-center gap-y-8 bg-[#F7f8f9] p-8 rounded-lg ">
+        {/* <Image alt="logo" src={images.logo} width={50} height={50} priority className="rounded-md" /> */}
+        <h2 className="text-3xl font-bold text-center">
+          Tham gia cộng đồng <br /> Sharub ngay
+        </h2>
         <h1 className="text-3xl font-extrabold">Đăng kí</h1>
         <div
           className="flex flex-col gap-4"
@@ -87,20 +92,6 @@ const SignUpPage = () => {
             }
           }}
         >
-          <div>
-            <label className="sr-only" htmlFor="name-input">
-              Tên
-            </label>
-            <input
-              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-              id="name-input"
-              name="name"
-              placeholder="Tên đầy đủ"
-              required
-              type="text"
-              ref={fullNameRef}
-            />
-          </div>
           <div>
             <label className="sr-only" htmlFor="email-input">
               Email
@@ -115,68 +106,95 @@ const SignUpPage = () => {
               ref={emailRef}
             />
           </div>
+          {_continue && (
+            <>
+              <div>
+                <label className="sr-only" htmlFor="name-input">
+                  Tên
+                </label>
+                <input
+                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  id="name-input"
+                  name="name"
+                  placeholder="Tên đầy đủ"
+                  required
+                  type="text"
+                  ref={fullNameRef}
+                />
+              </div>
+              <div>
+                <label className="sr-only" htmlFor="address-input">
+                  Địa chỉ
+                </label>
+                <select
+                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  onChange={handleAddressSelectionChanged}
+                >
+                  <option value={JSON.stringify({ name: 'Địa chỉ', code: null })}>Địa chỉ</option>
+                  {province &&
+                    province.map((item) => (
+                      <option value={JSON.stringify({ name: item.name, code: item.code })} key={item.code}>
+                        {item.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <div>
+                <label className="sr-only" htmlFor="password-input">
+                  Mật khẩu
+                </label>
+                <input
+                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  id="password-input"
+                  name="password"
+                  placeholder="Mật khẩu"
+                  required
+                  type="password"
+                  ref={passwordRef}
+                />
+              </div>
+              <div>
+                <label className="sr-only" htmlFor="confirm-password-input">
+                  Mật khẩu
+                </label>
+                <input
+                  className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  id="confirm-password-input"
+                  name="confirmPassword"
+                  placeholder="Xác nhận mật khẩu"
+                  required
+                  type="password"
+                  ref={confirmPasswordRef}
+                />
+              </div>
+            </>
+          )}
           <div>
-            <label className="sr-only" htmlFor="address-input">
-              Địa chỉ
-            </label>
-            <select
-              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-              onChange={handleAddressSelectionChanged}
-            >
-              <option value={JSON.stringify({ name: 'Địa chỉ', code: null })}>Địa chỉ</option>
-              {province &&
-                province.map((item) => (
-                  <option value={JSON.stringify({ name: item.name, code: item.code })} key={item.code}>
-                    {item.name}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div>
-            <label className="sr-only" htmlFor="password-input">
-              Mật khẩu
-            </label>
-            <input
-              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-              id="password-input"
-              name="password"
-              placeholder="Mật khẩu"
-              required
-              type="password"
-              ref={passwordRef}
-            />
-          </div>
-          <div>
-            <label className="sr-only" htmlFor="confirm-password-input">
-              Mật khẩu
-            </label>
-            <input
-              className="block w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
-              id="confirm-password-input"
-              name="confirmPassword"
-              placeholder="Xác nhận mật khẩu"
-              required
-              type="password"
-              ref={confirmPasswordRef}
-            />
-          </div>
-          <div>
-            <button
-              className="w-full rounded-md bg-primary-500 p-2 text-center text-white sm:hover:bg-primary-700"
-              onClick={handleSignUp}
-            >
-              Đăng kí
-            </button>
-            <div className="text-center text-black/[0.6]">hoặc</div>
-            <Link href="/login" passHref>
-              <button className="w-full rounded-md border p-2 text-center sm:hover:border-gray-300 sm:hover:bg-gray-200">
-                Đăng nhập
+            {!_continue && (
+              <div>
+                <button onClick={handleContinue} className="bg-main w-full text-white rounded-md py-2">
+                  Tiếp tục
+                </button>
+              </div>
+            )}
+            {_continue && (
+              <button
+                className="w-full rounded-md bg-primary-500 p-2 text-center text-white sm:hover:bg-primary-700"
+                onClick={handleSignUp}
+              >
+                Đăng kí
               </button>
-            </Link>
+            )}
+            <p className="text-center mt-2">
+              Bạn đã có tài khoản?{' '}
+              <Link href="/login" className="text-main">
+                Đăng nhập
+              </Link>
+            </p>
           </div>
         </div>
       </div>
     </>
   );
 };
-export default SignUpPage;
+export default SignInPage;

@@ -5,7 +5,14 @@ module.exports = {
   experimental: {
     optimizeUniversalDefaults: true,
   },
-  content: ['./pages/**/*.js', './components/**/*.js', './layouts/**/*.js', './lib/**/*.js', './data/**/*.mdx'],
+  content: [
+    './pages/**/*.js',
+    './components/**/*.js',
+    './layouts/**/*.js',
+    './lib/**/*.js',
+    './data/**/*.mdx',
+    './components/**/*.jsx',
+  ],
   darkMode: 'class',
   theme: {
     extend: {
@@ -24,6 +31,7 @@ module.exports = {
       colors: {
         primary: colors.teal,
         gray: colors.neutral,
+        main: '#00DEA3',
       },
       typography: (theme) => ({
         DEFAULT: {
