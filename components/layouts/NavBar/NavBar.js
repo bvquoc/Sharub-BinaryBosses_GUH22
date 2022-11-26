@@ -72,7 +72,7 @@ function NavBar() {
           <Link className={cx('logo')} href="/">
             <img className={cx('logo-icon')} src={images.logo} alt="logo" />
           </Link>
-          <h1 className="text-xl font-bold">Sharub</h1>
+          <h1 className="text-2xl font-bold">Sharub</h1>
         </div>
 
         {/* <span className={cx('line')}></span> */}
