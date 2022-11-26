@@ -13,7 +13,12 @@ function Product({ data }) {
   };
 
   return (
-    <div className={cx('wrapper')} onClick={handlePickGift}>
+    <div
+      className={cx('wrapper', {
+        unavailable: data.amount <= 0,
+      })}
+      onClick={handlePickGift}
+    >
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
@@ -28,6 +33,7 @@ function Product({ data }) {
             <FontAwesomeIcon className={cx('icon')} icon={faDiamond} />
             <span className={cx('condition-count')}>{data.gp} Greenpoint</span>
           </div>
+          <div>Còn lại: {data.amount}</div>
         </div>
       </div>
     </div>

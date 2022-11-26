@@ -10,6 +10,13 @@
     box-shadow: 0 0 16px #0002;
     transform: scale(1.01);
   }
+
+  &.unavailable {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+    cursor: not-allowed;
+  }
 }
 
 .image {
@@ -41,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #707eae;
 }
 

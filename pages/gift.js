@@ -20,7 +20,8 @@ const Gift = () => {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
     getAllGifts().then((res) => {
-      setProductList(res);
+      const sortedRes = res.sort((a, b) => (a.amount ? -1 : 1));
+      setProductList(sortedRes);
     });
   }, []);
   return (
