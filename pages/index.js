@@ -95,14 +95,7 @@ const Home = () => {
               <button className="bg-white py-2 px-4 rounded-md">
                 <FontAwesomeIcon icon={faBell} />
               </button>
-              <Image
-                src={'/img/letuananh.jpg'}
-                alt="avatar"
-                width={40}
-                height={40}
-                quality={100}
-                className="rounded-md"
-              />
+              <Image src={'/img/avatar.jpg'} alt="avatar" width={40} height={40} quality={100} className="rounded-md" />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-x-4">
