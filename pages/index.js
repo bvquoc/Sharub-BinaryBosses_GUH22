@@ -16,13 +16,14 @@ import { getAllProducts } from '../db/product';
 
 const Home = () => {
   const [productList, setProductList] = useState([]);
+  const [reRender, setReRender] = useState(false);
   useEffect(() => {
     getAllProducts().then((res) => {
       const sortedRes = res.sort((a, b) => (a.isAvailable ? -1 : 1));
       console.log(sortedRes);
       setProductList(sortedRes);
     });
-  }, []);
+  }, [reRender]);
 
   const searchRef = useRef(null);
 
@@ -134,7 +135,14 @@ const Home = () => {
           <p className="text-sm text-center text-slate-400 pb-4">Thứ hạng hiện tại của bạn: 89</p>
         </div>
       </div>
-      {productData && <ProductModal productData={productData} setProductData={setProductData} />}
+      {productData && (
+        <ProductModal
+          productData={productData}
+          setProductData={setProductData}
+          reRender={reRender}
+          setReRender={setReRender}
+        />
+      )}
     </>
   );
 };
