@@ -6,7 +6,9 @@ import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'r
 import { toast, ToastContainer } from 'react-toastify';
 import { auth } from '../firebase/clientApp.js';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import images from '~/assets/images'
 import { data } from 'autoprefixer';
+
 const SignInPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -49,7 +51,7 @@ const SignInPage = () => {
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[1000] flex flex-col items-center justify-center gap-y-8 bg-white dark:bg-black">
         <Image
           alt="logo"
-          src={'/static/favicons/android-icon-144x144.png'}
+          src={images.logo}
           width={100}
           height={100}
           priority
