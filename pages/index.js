@@ -1,9 +1,10 @@
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductModal from 'components/Modal/ProductModal';
+import { AuthContext } from 'context/AuthContext';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import NavBar from '~/components/layouts/NavBar';
 import Product from '~/components/Product';
 import { getAllProducts } from '../db/product';
@@ -17,13 +18,14 @@ import { getAllProducts } from '../db/product';
 const Home = () => {
   const [productList, setProductList] = useState([]);
   const [reRender, setReRender] = useState(false);
+  const { render } = useContext(AuthContext);
   useEffect(() => {
     getAllProducts().then((res) => {
       const sortedRes = res.sort((a, b) => (a.isAvailable ? -1 : 1));
       console.log(sortedRes);
       setProductList(sortedRes);
     });
-  }, [reRender]);
+  }, [reRender, render]);
 
   const searchRef = useRef(null);
 

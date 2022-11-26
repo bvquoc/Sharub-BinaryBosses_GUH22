@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [render, setRender] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -18,6 +19,8 @@ export const AuthContextProvider = ({ children }) => {
   const value = {
     userData,
     setUserData,
+    render,
+    setRender,
   };
 
   const router = useRouter();

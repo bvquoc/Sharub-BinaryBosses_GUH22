@@ -1,9 +1,10 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { auth } from '../../firebase/clientApp';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { addDocument } from 'db/document/add-a-doc';
+import { AuthContext } from 'context/AuthContext';
 
 const ProductUploadModal = ({ setShow }) => {
   const productNameRef = useRef(null);
@@ -18,6 +19,7 @@ const ProductUploadModal = ({ setShow }) => {
     const addressInfo = JSON.parse(e.target.value);
     setAddress(addressInfo);
   };
+  const { render, setRender } = useContext(AuthContext);
   useEffect(() => {
     fetch('https://provinces.open-api.vn/api/')
       .then((res) => res.json())
@@ -50,6 +52,7 @@ const ProductUploadModal = ({ setShow }) => {
     addDocument('products', docID, curData);
     toast('Đăng sản phẩm thành công!');
     setShow(false);
+    setRender(!render);
   };
 
   return (
