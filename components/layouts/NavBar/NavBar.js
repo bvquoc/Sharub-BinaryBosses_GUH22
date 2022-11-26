@@ -71,8 +71,8 @@ function NavBar() {
         <div className="flex items-center">
           <Link className={cx('logo')} href="/">
             <img className={cx('logo-icon')} src={images.logo} alt="logo" />
+            <h1 className="ml-4 text-2xl font-bold">Sharub</h1>
           </Link>
-          <h1 className="text-xl font-bold">Sharub</h1>
         </div>
 
         {/* <span className={cx('line')}></span> */}
