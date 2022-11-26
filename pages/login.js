@@ -2,14 +2,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { auth } from '../firebase/clientApp.js';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { data } from 'autoprefixer';
 const SignInPage = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
-  //   const router = useRouter()
-
+  const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [userData, setUserData] = useState(null);
+  const router = useRouter();
+  if (user) {
+    console.log(user);
+    router.push('/');
+  }
+  if (error) console.log(error.message, 'error');
   //   const { loginUser } = useContext(AuthContext)
   const handleSignIn = async () => {
     const email = emailRef.current?.value;
@@ -30,14 +38,10 @@ const SignInPage = () => {
     if (!validateEmail(email)) {
       return toast('Email không hợp lệ!');
     }
-    // const loginData = await loginUser({ email, password })
-    // if (!loginData.success) {
-    //   toast(loginData.message)
-    //   console.log(loginData)
-    // } else {
-    //   console.log(loginData)
-    //   router.replace('/')
-    // }
+
+    signInWithEmailAndPassword(email, password).then(() => {
+      // setUserData(data)
+    });
   };
 
   return (
