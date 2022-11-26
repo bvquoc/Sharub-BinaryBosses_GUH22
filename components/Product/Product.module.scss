@@ -13,10 +13,6 @@
     box-shadow: 0 0 16px #0002;
     transform: scale(1.01);
   }
-
-  & + .wrapper {
-    // margin-left: 16px;
-  }
 }
 
 .image {
@@ -34,8 +30,17 @@
   margin-bottom: 4px;
   font-size: 1.6rem;
   line-height: 1.5;
-
   font-weight: 600;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: no-wrap;
+  -webkit-box-orient: vertical;
+}
+
+.desc {
+  font-size: 0.8rem;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   display: -webkit-box;

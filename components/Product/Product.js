@@ -18,6 +18,7 @@ function Product({ data }) {
 
       <div className={cx('content')}>
         <h3 className={cx('name')}>{data.name}</h3>
+        <p className={cx('desc')}>{data.description}</p>
 
         <div className={cx('location-wrapper')}>
           <FontAwesomeIcon className={cx('icon')} icon={faLocationDot} />
