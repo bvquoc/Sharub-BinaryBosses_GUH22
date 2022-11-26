@@ -126,9 +126,7 @@ const Home = () => {
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-col-4 grid-cols-1 gap-4 mt-8">
             {productList.map((product) => {
-              // console.log(product);
-              if (product.isAvailable)
-                return <Product data={product} key={product._docId} onClick={handleClickProduct} />;
+              return <Product data={product} key={product._docId} onClick={handleClickProduct} />;
             })}
           </div>
         </div>

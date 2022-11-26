@@ -9,7 +9,12 @@ const cx = classNames.bind(styles);
 
 function Product({ data, onClick }) {
   return (
-    <div className={cx('wrapper')} onClick={() => onClick(data)}>
+    <div
+      className={cx('wrapper', {
+        unavailable: data.isAvailable,
+      })}
+      onClick={() => onClick(data)}
+    >
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
