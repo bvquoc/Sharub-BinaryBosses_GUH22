@@ -1,7 +1,9 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { auth } from '../../firebase/clientApp';
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { addDocument } from 'db/document/add-a-doc';
 
 const ProductUploadModal = ({ setShow }) => {
   const productNameRef = useRef(null);
@@ -29,7 +31,25 @@ const ProductUploadModal = ({ setShow }) => {
     if (!productName || !imgUrl || !address.code || !description) {
       return toast('Vui lòng nhập đầy đủ thông tin!');
     }
-    console.log({ name: productName, imgUrl, address, description });
+    const curData = {
+      name: productName,
+      imgUrl,
+      address,
+      description,
+      isAvailable: true,
+      ownerId: auth.currentUser?.uid || 'HBfzmc5jD2ehy4pwHlpmMztvZcX2',
+      ownerName: auth.currentUser?.displayName || 'Sharub',
+    };
+    function toTimestamp(strDate) {
+      var datum = Date.parse(strDate);
+      return datum / 1000;
+    }
+
+    console.log(curData);
+    const docID = toTimestamp(Date()).toString();
+    addDocument('products', docID, curData);
+    toast('Đăng sản phẩm thành công!');
+    setShow(false);
   };
 
   return (

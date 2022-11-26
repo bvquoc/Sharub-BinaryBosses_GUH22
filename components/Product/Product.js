@@ -9,7 +9,7 @@ function Product({ data, onClick }) {
   return (
     <div
       className={cx('wrapper', {
-        unavailable: data.isAvailable,
+        unavailable: !data.isAvailable,
       })}
       style={{ cursor: 'pointer' }}
       onClick={() => onClick(data)}
