@@ -13,7 +13,7 @@ function Product({ data }) {
   };
 
   return (
-    <Link className={cx('wrapper')} href={`/product/${data._docId}`}>
+    <div className={cx('wrapper')}>
       <img
         className={cx('image')}
         src={data.imgUrl || 'https://github.com/bvquoc/guh22-binarybosses/blob/main/public/img/senda.jpg?raw=true'}
@@ -34,7 +34,7 @@ function Product({ data }) {
           </button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
