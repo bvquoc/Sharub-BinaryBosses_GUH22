@@ -24,7 +24,9 @@ const Home = () => {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
     getAllProducts().then((res) => {
-      setProductList(res);
+      const sortedRes = res.sort((a, b) => (!a.isAvailable ? 1 : -1));
+      console.log(sortedRes);
+      setProductList(sortedRes);
     });
   }, []);
 
