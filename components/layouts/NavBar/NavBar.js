@@ -95,7 +95,7 @@ function NavBar() {
           </div>
           <button
             onClick={handleLogout}
-            className="absolute bottom-10 left-4 right-4 py-2 rounded-md sm:transform hover:scale-[1.03] transition-all"
+            className="absolute bottom-10 left-4 right-4 py-2 rounded-md sm:transform hover:scale-[1.03] hover:text-red-500 transition-all"
           >
             <FontAwesomeIcon icon={faRightFromBracket} size={30} />
             <span className={cx('title')}>Đăng xuất</span>
