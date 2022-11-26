@@ -52,12 +52,12 @@ Ngoài ra, khi sử dụng hệ thống của chúng tôi, bạn được quyề
 - Kết nối các tổ chức xã hội
 - Blog chia sẻ câu chuyện về môi trường
 
-## 7. Công nghệ sử dụng:
+## 6. Công nghệ sử dụng:
 
 - Front-end: **NextJS, TailwindCSS,...**
 - Back-end: **Firebase**
 
-## 6. Hướng dẫn cài đặt:
+## 7. Hướng dẫn cài đặt:
 
 Clone repo Github:
 
@@ -73,3 +73,13 @@ npm run dev
 ```
 
 Done!
+
+## 8. Sharub Team
+
+![Sharub Team](./public/sharub-team.jpg)
+
+- Bùi Vĩ Quốc
+- Lê Thị Liên
+- Lê Tuấn Anh
+- Nguyễn Xuân Bắc
+- Trần Tuấn Kiệt
