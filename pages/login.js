@@ -42,9 +42,15 @@ const SignUpPage = () => {
       return toast('Email không hợp lệ!');
     }
 
-    signInWithEmailAndPassword(email, password).then(() => {
-      // setUserData(user);
-    });
+    try {
+      signInWithEmailAndPassword(email, password)
+        .then(() => {
+          // setUserData(user);
+        })
+        .catch((err) => toast(err.message));
+    } catch (err) {
+      return toast(err.message);
+    }
   };
 
   return (
