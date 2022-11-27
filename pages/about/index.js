@@ -5,15 +5,15 @@ import React from 'react';
 const About = () => {
   return (
     <>
-      <div className="grid grid-cols-[auto_auto] overflow-hidden bg-[#F7F8F9]">
+      <div className="grid grid-cols-[auto_auto] overflow-hidden bg-[#eff3fd]">
         <NavBar />
-        <div className="grid place-items-center bg-white shadow">
-          <div className="w-[60%]">
-            <h1 className="text-3xl font-semibold text-center mb-4">Sharub Team</h1>
+        <div className="grid place-items-center bg-[#eff3fd] shadow">
+          <div className="w-[50%]">
+            <h1 className="text-3xl font-semibold text-center">Sharub Team</h1>
             <img
               src="/img/sharub-team.jpg"
               alt="sharub-team"
-              className="w-full h-full object-cover rounded-3xl shadow-md"
+              className="w-full h-full object-cover rounded-3xl my-4 shadow-md"
             />
             <h2 className="text-md text-center">Bùi Vĩ Quốc (Leader)</h2>
             <h2 className="text-md text-center">Lê Thị Liên (Content Creator)</h2>
