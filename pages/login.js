@@ -19,7 +19,6 @@ const SignUpPage = () => {
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
   if (user) {
-    console.log(user);
     router.push('/');
   }
   if (error) console.log(error.message, 'error');
@@ -27,7 +26,6 @@ const SignUpPage = () => {
   const handleSignIn = async () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
-    console.log({ email, password });
     const validateEmail = (email) => {
       return String(email)
         .toLowerCase()

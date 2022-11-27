@@ -25,7 +25,6 @@ function Header() {
       .then(() => {
         setUserData(null);
         router.replace('/login');
-        console.log('signed out!');
       })
       .catch((err) => {
         return toast(err.message);

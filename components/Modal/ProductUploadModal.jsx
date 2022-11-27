@@ -47,7 +47,6 @@ const ProductUploadModal = ({ setShow }) => {
       return datum / 1000;
     }
 
-    console.log(curData);
     const docID = toTimestamp(Date()).toString();
     addDocument('products', docID, curData);
     toast('Đăng sản phẩm thành công!');

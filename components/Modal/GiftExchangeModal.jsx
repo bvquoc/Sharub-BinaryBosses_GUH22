@@ -6,14 +6,10 @@ import { updateDocument } from 'db/document/update-a-doc';
 
 const GiftExchangeModal = ({ productData, setShow, render, setRender }) => {
   const handleClick = () => {
-    // Xu li di
-    // khi thanh cong, ham nay duoc chay thi se thanh cong!
-    console.log(productData);
     const newData = {
       ...productData,
       amount: productData.amount - 1,
     };
-    console.log(newData);
     toast('Nhận quà thành công!');
     updateDocument('gifts', productData._docId, newData);
     setRender(!render);
