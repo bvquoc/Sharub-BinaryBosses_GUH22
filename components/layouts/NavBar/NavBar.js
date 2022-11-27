@@ -28,12 +28,7 @@ const ROUTERS_PATH = [
     icon: <PointIcon />,
   },
   {
-    path: '/library',
-    title: 'Thư viện',
-    icon: <LibraryIcon />,
-  },
-  {
-    path: 'aboutus',
+    path: 'about',
     title: 'Về chúng tôi',
     icon: <FontAwesomeIcon className={cx('icon')} icon={faAddressCard} />,
   },
