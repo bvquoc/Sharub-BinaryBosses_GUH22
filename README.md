@@ -63,6 +63,8 @@ Clone repo Github:
 
 ```bash
 git clone https://github.com/bvquoc/guh22-binarybosses
+// hoặc
+git clone https://github.com/GameUITHackathon2022/15-Binary-Bosses
 ```
 
 Cài đặt package và chạy trên môi trường development:

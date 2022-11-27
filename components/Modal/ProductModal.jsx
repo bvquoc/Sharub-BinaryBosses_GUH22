@@ -6,8 +6,6 @@ import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const ProductModal = ({ productData, setProductData, reRender, setReRender }) => {
-  console.log(productData);
-
   const actionReceive = () => {
     if (!productData.isAvailable) {
       toast('Oops, muộn mất rồi! Chúc bạn may mắn lần sau.');
