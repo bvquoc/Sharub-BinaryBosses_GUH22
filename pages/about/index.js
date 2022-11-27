@@ -1,9 +1,28 @@
+import NavBar from 'components/layouts/NavBar';
+import Image from 'next/image';
 import React from 'react';
 
 const About = () => {
   return (
     <>
-      <div>About</div>
+      <div className="grid grid-cols-[auto_auto] overflow-hidden bg-[#F7F8F9]">
+        <NavBar />
+        <div className="grid place-items-center bg-white shadow">
+          <div className="w-[60%]">
+            <h1 className="text-3xl font-semibold text-center mb-4">Sharub Team</h1>
+            <img
+              src="/img/sharub-team.jpg"
+              alt="sharub-team"
+              className="w-full h-full object-cover rounded-3xl shadow-md"
+            />
+            <h2 className="text-md text-center">Bùi Vĩ Quốc (Leader)</h2>
+            <h2 className="text-md text-center">Lê Thị Liên (Content Creator)</h2>
+            <h2 className="text-md text-center">Lê Tuấn Anh (Designer)</h2>
+            <h2 className="text-md text-center">Nguyễn Xuân Bắc (Developer)</h2>
+            <h2 className="text-md text-center">Trần Tuấn Kiệt (Developer)</h2>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
