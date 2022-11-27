@@ -76,7 +76,7 @@ Done!
 
 ## 8. Sharub Team
 
-![Sharub Team](./public/sharub-team.jpg)
+![Sharub Team](./public/img/sharub-team.jpg)
 
 - Bùi Vĩ Quốc
 - Lê Thị Liên
